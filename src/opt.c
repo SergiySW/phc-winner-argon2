@@ -55,13 +55,13 @@ static void fill_block(__m512i *state, const block *ref_block,
     }
 
     for (i = 0; i < 2; ++i) {
-        BLAKE2_ROUND_1(
+        ARGON2_BLAKE2_ROUND_1(
             state[8 * i + 0], state[8 * i + 1], state[8 * i + 2], state[8 * i + 3],
             state[8 * i + 4], state[8 * i + 5], state[8 * i + 6], state[8 * i + 7]);
     }
 
     for (i = 0; i < 2; ++i) {
-        BLAKE2_ROUND_2(
+        ARGON2_BLAKE2_ROUND_2(
             state[2 * 0 + i], state[2 * 1 + i], state[2 * 2 + i], state[2 * 3 + i],
             state[2 * 4 + i], state[2 * 5 + i], state[2 * 6 + i], state[2 * 7 + i]);
     }
@@ -92,12 +92,12 @@ static void fill_block(__m256i *state, const block *ref_block,
     }
 
     for (i = 0; i < 4; ++i) {
-        BLAKE2_ROUND_1(state[8 * i + 0], state[8 * i + 4], state[8 * i + 1], state[8 * i + 5],
+        ARGON2_BLAKE2_ROUND_1(state[8 * i + 0], state[8 * i + 4], state[8 * i + 1], state[8 * i + 5],
                        state[8 * i + 2], state[8 * i + 6], state[8 * i + 3], state[8 * i + 7]);
     }
 
     for (i = 0; i < 4; ++i) {
-        BLAKE2_ROUND_2(state[ 0 + i], state[ 4 + i], state[ 8 + i], state[12 + i],
+        ARGON2_BLAKE2_ROUND_2(state[ 0 + i], state[ 4 + i], state[ 8 + i], state[12 + i],
                        state[16 + i], state[20 + i], state[24 + i], state[28 + i]);
     }
 
@@ -127,13 +127,13 @@ static void fill_block(__m128i *state, const block *ref_block,
     }
 
     for (i = 0; i < 8; ++i) {
-        BLAKE2_ROUND(state[8 * i + 0], state[8 * i + 1], state[8 * i + 2],
+        ARGON2_BLAKE2_ROUND(state[8 * i + 0], state[8 * i + 1], state[8 * i + 2],
             state[8 * i + 3], state[8 * i + 4], state[8 * i + 5],
             state[8 * i + 6], state[8 * i + 7]);
     }
 
     for (i = 0; i < 8; ++i) {
-        BLAKE2_ROUND(state[8 * 0 + i], state[8 * 1 + i], state[8 * 2 + i],
+        ARGON2_BLAKE2_ROUND(state[8 * 0 + i], state[8 * 1 + i], state[8 * 2 + i],
             state[8 * 3 + i], state[8 * 4 + i], state[8 * 5 + i],
             state[8 * 6 + i], state[8 * 7 + i]);
     }

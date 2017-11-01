@@ -55,7 +55,7 @@ static void fill_block(const block *prev_block, const block *ref_block,
     /* Apply Blake2 on columns of 64-bit words: (0,1,...,15) , then
        (16,17,..31)... finally (112,113,...127) */
     for (i = 0; i < 8; ++i) {
-        BLAKE2_ROUND_NOMSG(
+        ARGON2_BLAKE2_ROUND_NOMSG(
             blockR.v[16 * i], blockR.v[16 * i + 1], blockR.v[16 * i + 2],
             blockR.v[16 * i + 3], blockR.v[16 * i + 4], blockR.v[16 * i + 5],
             blockR.v[16 * i + 6], blockR.v[16 * i + 7], blockR.v[16 * i + 8],
@@ -67,7 +67,7 @@ static void fill_block(const block *prev_block, const block *ref_block,
     /* Apply Blake2 on rows of 64-bit words: (0,1,16,17,...112,113), then
        (2,3,18,19,...,114,115).. finally (14,15,30,31,...,126,127) */
     for (i = 0; i < 8; i++) {
-        BLAKE2_ROUND_NOMSG(
+        ARGON2_BLAKE2_ROUND_NOMSG(
             blockR.v[2 * i], blockR.v[2 * i + 1], blockR.v[2 * i + 16],
             blockR.v[2 * i + 17], blockR.v[2 * i + 32], blockR.v[2 * i + 33],
             blockR.v[2 * i + 48], blockR.v[2 * i + 49], blockR.v[2 * i + 64],

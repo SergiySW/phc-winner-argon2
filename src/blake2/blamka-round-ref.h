@@ -15,14 +15,14 @@
  * software. If not, they may be obtained at the above URLs.
  */
 
-#ifndef BLAKE_ROUND_MKA_H
-#define BLAKE_ROUND_MKA_H
+#ifndef ARGON2_BLAKE_ROUND_MKA_H
+#define ARGON2_BLAKE_ROUND_MKA_H
 
 #include "blake2.h"
 #include "blake2-impl.h"
 
 /*designed by the Lyra PHC team */
-static BLAKE2_INLINE uint64_t fBlaMka(uint64_t x, uint64_t y) {
+static ARGON2_BLAKE2_INLINE uint64_t fBlaMka(uint64_t x, uint64_t y) {
     const uint64_t m = UINT64_C(0xFFFFFFFF);
     const uint64_t xy = (x & m) * (y & m);
     return x + y + 2 * xy;
@@ -40,7 +40,7 @@ static BLAKE2_INLINE uint64_t fBlaMka(uint64_t x, uint64_t y) {
         b = rotr64(b ^ c, 63);                                                 \
     } while ((void)0, 0)
 
-#define BLAKE2_ROUND_NOMSG(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11,   \
+#define ARGON2_BLAKE2_ROUND_NOMSG(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11,   \
                            v12, v13, v14, v15)                                 \
     do {                                                                       \
         G(v0, v4, v8, v12);                                                    \

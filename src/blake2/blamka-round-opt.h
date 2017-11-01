@@ -15,8 +15,8 @@
  * software. If not, they may be obtained at the above URLs.
  */
 
-#ifndef BLAKE_ROUND_MKA_OPT_H
-#define BLAKE_ROUND_MKA_OPT_H
+#ifndef ARGON2_BLAKE_ROUND_MKA_OPT_H
+#define ARGON2_BLAKE_ROUND_MKA_OPT_H
 
 #include "blake2-impl.h"
 
@@ -56,7 +56,7 @@
 #else
 #endif
 
-static BLAKE2_INLINE __m128i fBlaMka(__m128i x, __m128i y) {
+static ARGON2_BLAKE2_INLINE __m128i fBlaMka(__m128i x, __m128i y) {
     const __m128i z = _mm_mul_epu32(x, y);
     return _mm_add_epi64(_mm_add_epi64(x, y), _mm_add_epi64(z, z));
 }
@@ -166,7 +166,7 @@ static BLAKE2_INLINE __m128i fBlaMka(__m128i x, __m128i y) {
     } while ((void)0, 0)
 #endif
 
-#define BLAKE2_ROUND(A0, A1, B0, B1, C0, C1, D0, D1)                           \
+#define ARGON2_BLAKE2_ROUND(A0, A1, B0, B1, C0, C1, D0, D1)                           \
     do {                                                                       \
         G1(A0, B0, C0, D0, A1, B1, C1, D1);                                    \
         G2(A0, B0, C0, D0, A1, B1, C1, D1);                                    \
@@ -299,7 +299,7 @@ static BLAKE2_INLINE __m128i fBlaMka(__m128i x, __m128i y) {
         D1 = _mm256_permute4x64_epi64(tmp2, _MM_SHUFFLE(2,3,0,1)); \
     } while((void)0, 0);
 
-#define BLAKE2_ROUND_1(A0, A1, B0, B1, C0, C1, D0, D1) \
+#define ARGON2_BLAKE2_ROUND_1(A0, A1, B0, B1, C0, C1, D0, D1) \
     do{ \
         G1_AVX2(A0, A1, B0, B1, C0, C1, D0, D1) \
         G2_AVX2(A0, A1, B0, B1, C0, C1, D0, D1) \
@@ -312,7 +312,7 @@ static BLAKE2_INLINE __m128i fBlaMka(__m128i x, __m128i y) {
         UNDIAGONALIZE_1(A0, B0, C0, D0, A1, B1, C1, D1) \
     } while((void)0, 0);
 
-#define BLAKE2_ROUND_2(A0, A1, B0, B1, C0, C1, D0, D1) \
+#define ARGON2_BLAKE2_ROUND_2(A0, A1, B0, B1, C0, C1, D0, D1) \
     do{ \
         G1_AVX2(A0, A1, B0, B1, C0, C1, D0, D1) \
         G2_AVX2(A0, A1, B0, B1, C0, C1, D0, D1) \
@@ -405,7 +405,7 @@ static __m512i muladd(__m512i x, __m512i y)
         D1 = _mm512_permutex_epi64(D1, _MM_SHUFFLE(0, 3, 2, 1)); \
     } while ((void)0, 0)
 
-#define BLAKE2_ROUND(A0, B0, C0, D0, A1, B1, C1, D1) \
+#define ARGON2_BLAKE2_ROUND(A0, B0, C0, D0, A1, B1, C1, D1) \
     do { \
         G1(A0, B0, C0, D0, A1, B1, C1, D1); \
         G2(A0, B0, C0, D0, A1, B1, C1, D1); \
@@ -441,26 +441,26 @@ static __m512i muladd(__m512i x, __m512i y)
         SWAP_HALVES(A0, A1); \
     } while((void)0, 0)
 
-#define BLAKE2_ROUND_1(A0, C0, B0, D0, A1, C1, B1, D1) \
+#define ARGON2_BLAKE2_ROUND_1(A0, C0, B0, D0, A1, C1, B1, D1) \
     do { \
         SWAP_HALVES(A0, B0); \
         SWAP_HALVES(C0, D0); \
         SWAP_HALVES(A1, B1); \
         SWAP_HALVES(C1, D1); \
-        BLAKE2_ROUND(A0, B0, C0, D0, A1, B1, C1, D1); \
+        ARGON2_BLAKE2_ROUND(A0, B0, C0, D0, A1, B1, C1, D1); \
         SWAP_HALVES(A0, B0); \
         SWAP_HALVES(C0, D0); \
         SWAP_HALVES(A1, B1); \
         SWAP_HALVES(C1, D1); \
     } while ((void)0, 0)
 
-#define BLAKE2_ROUND_2(A0, A1, B0, B1, C0, C1, D0, D1) \
+#define ARGON2_BLAKE2_ROUND_2(A0, A1, B0, B1, C0, C1, D0, D1) \
     do { \
         SWAP_QUARTERS(A0, A1); \
         SWAP_QUARTERS(B0, B1); \
         SWAP_QUARTERS(C0, C1); \
         SWAP_QUARTERS(D0, D1); \
-        BLAKE2_ROUND(A0, B0, C0, D0, A1, B1, C1, D1); \
+        ARGON2_BLAKE2_ROUND(A0, B0, C0, D0, A1, B1, C1, D1); \
         UNSWAP_QUARTERS(A0, A1); \
         UNSWAP_QUARTERS(B0, B1); \
         UNSWAP_QUARTERS(C0, C1); \
@@ -468,4 +468,4 @@ static __m512i muladd(__m512i x, __m512i y)
     } while ((void)0, 0)
 
 #endif /* __AVX512F__ */
-#endif /* BLAKE_ROUND_MKA_OPT_H */
+#endif /* ARGON2_BLAKE_ROUND_MKA_OPT_H */
